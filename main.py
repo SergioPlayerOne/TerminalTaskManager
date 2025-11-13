@@ -1,4 +1,5 @@
 import argparse
+from taskmanager import add_task, log_tasks
 
 # create the top level parser
 parser = argparse.ArgumentParser(
@@ -17,7 +18,7 @@ add_parser = command_parser.add_parser(
     help="add a new task with title with the specified optional parameters"
 )
 add_parser.add_argument(
-    '-t', '--title',
+    'title',
     help='the title of the task to add'
 )
 add_parser.add_argument(
@@ -26,14 +27,10 @@ add_parser.add_argument(
 )
 
 # Handles the arguments parsed
-args = parser.parse_args()
+args = parser.parse_args(['add', 'title'])
 if args.command == "add":
-    newTask = {
-        'Title': None,
-        'Description': None
-    }
-    if args.title:
-        newTask["Title"] = args.title
-    if args.description:
-        newTask["Description"] = args.description
-    print("The task " + str(newTask) + " was created successfully")
+    title: str = args.title
+    description: str | None = args.description if args.description != None else None
+    add_task(title, description)
+    log_tasks()
+

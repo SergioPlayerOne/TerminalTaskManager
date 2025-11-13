@@ -20,8 +20,12 @@ def log_tasks():
 
 # Adds a new task
 def add_task(title: str, description: str):
-    cursor.execute(
-        "INSERT INTO task (id, title, description) VALUES (?, ?, ?)",
-        (title, description)
-    )
-    connecction.commit()
+    try:
+        cursor.execute(
+            "INSERT INTO task (title, description) VALUES (?, ?)",
+            (title, description)
+        )
+        connecction.commit()
+        print("The task was created successfully")
+    except:
+        print("The creation of the task failed. Please try again")
