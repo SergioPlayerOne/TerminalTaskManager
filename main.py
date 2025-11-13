@@ -26,10 +26,18 @@ add_parser.add_argument(
     help='the description of the task'
 )
 
+# The 'list' parser
+list_parser = command_parser.add_parser(
+    name='list',
+    help='list all of the current uncompleted tasks'
+)
+
 # Handles the arguments parsed
 args = parser.parse_args(['add', 'title', '-d', 'description'])
 if args.command == "add":
     title: str = args.title
     description: str | None = args.description if args.description != None else None
     add_task(title, description)
+if args.command == 'list':
+    list_tasks()
 
