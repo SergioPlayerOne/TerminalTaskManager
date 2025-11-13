@@ -9,7 +9,7 @@ cursor.execute(
     ")" \
 )
 
-# Gets a table and prints it row by row
+# Gets a table and prints it row by row (Debug only)
 def log_tasks():
     rows = cursor.execute("SELECT * FROM task").fetchall()
     if len(rows) == 0:
@@ -17,6 +17,23 @@ def log_tasks():
     else:  
         for row in rows:
             print(row)
+
+def list_tasks():
+    # Gets the tasks from the database
+    tasks = cursor.execute("SELECT * FROM task").fetchall()
+    if len(tasks) == 0:
+        print("You haven't created any tasks yet")
+    # If there are tasks, prints each of them in a nice format
+    else:
+        for task in tasks:
+            '''
+            0: Task title
+            1: Task description
+            '''
+            print("[] - " + task[0])
+            if task[1] != None:
+                print("    " + task[1])
+    
 
 # Adds a new task
 def add_task(title: str, description: str):

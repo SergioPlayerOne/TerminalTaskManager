@@ -1,5 +1,5 @@
 import argparse
-from taskmanager import add_task, log_tasks
+from taskmanager import add_task, list_tasks
 
 # create the top level parser
 parser = argparse.ArgumentParser(
@@ -27,10 +27,9 @@ add_parser.add_argument(
 )
 
 # Handles the arguments parsed
-args = parser.parse_args(['add', 'title'])
+args = parser.parse_args(['add', 'title', '-d', 'description'])
 if args.command == "add":
     title: str = args.title
     description: str | None = args.description if args.description != None else None
     add_task(title, description)
-    log_tasks()
 
