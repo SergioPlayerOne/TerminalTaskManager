@@ -35,14 +35,19 @@ list_parser.add_argument(
     '-ft', '--filter-title',
     help='filter in tasks that contain the word specified'
 )
+list_parser.add_argument(
+    '-fd', '--filter-description',
+    help='filter in tasks that contain the word specified'
+)
 
 # Handles the arguments parsed
 args = parser.parse_args()
 if args.command == "add":
     title: str = args.title
-    description: str | None = args.description if args.description != None else None
+    description: str | None = args.description
     add_task(title, description)
 if args.command == 'list':
-    title_filter: str | None = args.filter_title if args.filter_title != None else None
-    list_tasks(title_filter)
+    title_filter: str | None = args.filter_title
+    description_filter: str | None = args.filter_description
+    list_tasks(title_filter, description_filter)
 

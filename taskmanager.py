@@ -18,19 +18,29 @@ def log_tasks():
         for row in rows:
             print(row)
 
-def list_tasks(title_filter: str | None):
+def list_tasks(title_filter: str | None, description_filter: str | None):
     # Gets the tasks from the database
     tasks = cursor.execute("SELECT * FROM task").fetchall()
     if len(tasks) == 0:
         print("You haven't created any tasks yet")
     else:
         for task in tasks:
+            # Checks if the task is valid according to the filters provided
             is_task_valid: bool = False
             if title_filter != None:
                 words = task[0].split()
                 for word in words:
                     if word == title_filter:
                         is_task_valid = True
+            if description_filter != None:
+                if task[1] == None:
+                    continue
+                words = task[1].split()
+                for word in words:
+                    if word == description_filter:
+                        is_task_valid = True
+            if title_filter == None and description_filter == None:
+                is_task_valid = True
             if is_task_valid:
                 '''
                 0: Task title
