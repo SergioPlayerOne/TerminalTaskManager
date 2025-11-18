@@ -31,13 +31,18 @@ list_parser = command_parser.add_parser(
     name='list',
     help='list all of the current uncompleted tasks'
 )
+list_parser.add_argument(
+    '-ft', '--filter-title',
+    help='filter in tasks that contain the word specified'
+)
 
 # Handles the arguments parsed
-args = parser.parse_args(['add', 'title', '-d', 'description'])
+args = parser.parse_args()
 if args.command == "add":
     title: str = args.title
     description: str | None = args.description if args.description != None else None
     add_task(title, description)
 if args.command == 'list':
-    list_tasks()
+    title_filter: str | None = args.filter_title if args.filter_title != None else None
+    list_tasks(title_filter)
 
