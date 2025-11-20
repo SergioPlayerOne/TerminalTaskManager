@@ -41,13 +41,9 @@ list_parser.add_argument(
 )
 
 # Handles the arguments parsed
-args = parser.parse_args()
+args = parser.parse_args(['list'])
 if args.command == "add":
-    title: str = args.title
-    description: str | None = args.description
-    add_task(title, description)
+    add_task(args.title, args.description)
 if args.command == 'list':
-    title_filter: str | None = args.filter_title
-    description_filter: str | None = args.filter_description
-    list_tasks(title_filter, description_filter)
+    list_tasks(args.filter_title, args.filter_description)
 
